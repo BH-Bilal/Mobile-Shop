@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Mobile_Shop.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Product_Type)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Model_Id)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Brand.Brand_Name)
+            </th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+    <tbody>
+        @{ int i = 1; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">
+                    @i
+                    @{ i++;}
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model_Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand.Brand_Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

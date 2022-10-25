@@ -1,0 +1,140 @@
+﻿@model Mobile_Shop.Models.Purchase
+@{
+    ViewBag.Title = "Purchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Purchase_Master</h2>
+
+
+@using (Html.BeginForm("Purchase","Home",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="card border-primary mb-3">
+        <div class="card-header font-weight-bold text-primary">
+            Add Purchase Order Details
+        </div>
+
+        <div class="card-header text-primary">
+            <h4>Purchase_Master</h4>
+            <div class="card-body row row-cols-1 row-cols-md-4 g-3">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="card-body">
+                    @Html.LabelFor(model => model.PM.PO_NO, htmlAttributes: new { @class = "control-label card-text" })
+                    <div class="card-body"style="padding-left: unset">
+                        @Html.EditorFor(model => model.PM.PO_NO, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PM.PO_NO, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @Html.LabelFor(model => model.PM.PO_Date, htmlAttributes: new { @class = "control-label card-text" })
+                    <div class="card-body"style="padding-left: unset">
+                        @Html.EditorFor(model => model.PM.PO_Date, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PM.PO_Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @Html.LabelFor(model => model.PM.SupplierID, "SupplierID", htmlAttributes: new { @class = "control-label card-text" })
+                    <div class="card-body" style="padding-left: unset">
+                        @Html.DropDownListFor(model => model.PM.SupplierID, new SelectList(Model.suppliers, "Supplier_ID", "Supplier_Name"), "Select Supplier", 
+                       new { @class = "form-control", id = "ProductID" })
+                        @Html.ValidationMessageFor(model => model.PM.SupplierID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @Html.LabelFor(model => model.PM.Remarks, htmlAttributes: new { @class = "control-label card-text" })
+                    <div class="card-body"style="padding-left: unset">
+                        @Html.EditorFor(model => model.PM.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PM.Remarks, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header font-weight-bold text-primary">
+            Add Purchase Order Details
+        </div>
+        <div class="card-body text-gray-900">
+            <div class="form-horizontal">
+                <h4>Purchase_Detail</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.PO_ID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.PO_ID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.PO_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Product_ID, "Product_ID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.DropDownListFor(model => model.PD.Product_ID, new SelectList(Model.products, "Id", "Product_Type"), "Select Product",
+                         new { @class = "form-control", id = "ProductID" })
+                        @Html.ValidationMessageFor(model => model.PD.Product_ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.UOM, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.UOM, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.UOM, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Rate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.Rate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.Rate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.Amount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Tax, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.Tax, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.Tax, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PD.Net_Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PD.Net_Amount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PD.Net_Amount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Brand_ID" />
+          </Key>
+          <Property Name="Brand_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Brand_Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Brand_Model" Type="varchar(max)" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Customer_Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Email" Type="varchar(max)" Nullable="false" />
+          <Property Name="City" Type="varchar(max)" Nullable="false" />
+          <Property Name="State" Type="varchar(max)" Nullable="false" />
+          <Property Name="Country" Type="varchar(max)" Nullable="false" />
+          <Property Name="Pincode" Type="int" Nullable="false" />
+          <Property Name="Mobile" Type="varchar(max)" Nullable="false" />
+          <Property Name="PAN#" Type="varchar(max)" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Type" Type="varchar(max)" Nullable="false" />
+          <Property Name="Model_Id" Type="int" Nullable="false" />
+          <Property Name="Brand_Id" Type="int" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase_Detail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_ID" Type="int" Nullable="false" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UOM" Type="varchar(max)" Nullable="false" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Tax" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Net_Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_NO" Type="int" Nullable="false" />
+          <Property Name="PO_Date" Type="datetime" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Sales_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sales_ID" Type="int" Nullable="false" />
+          <Property Name="Product_ID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UOM" Type="varchar(max)" />
+          <Property Name="Rate" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="Discount" Type="int" />
+          <Property Name="Tax" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Tax_Amount" Type="int" Nullable="false" />
+          <Property Name="Net_Amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sales_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" Nullable="false" />
+          <Property Name="Sales_Date" Type="datetime" />
+          <Property Name="PAN" Type="varchar(max)" Nullable="false" />
+          <Property Name="Remarks" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_Name" Type="varchar(max)" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="Email" Type="varchar(max)" Nullable="false" />
+          <Property Name="City" Type="varchar(max)" Nullable="false" />
+          <Property Name="State" Type="varchar(max)" Nullable="false" />
+          <Property Name="Country" Type="varchar(max)" Nullable="false" />
+          <Property Name="PinCode" Type="int" Nullable="false" />
+          <Property Name="Mobile" Type="varchar(max)" Nullable="false" />
+          <Property Name="PAN#" Type="varchar(max)" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Product__Brand_I__5165187F">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Brand_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Brand_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Product__Brand_I__5FB337D6">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Brand_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Brand_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchase___Produ__5812160E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Purchase_Detail" Type="Self.Purchase_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Detail">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchase___Suppl__5441852A">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Purchase_Master" Type="Self.Purchase_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Purchase_Master">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Det__Produ__5EBF139D">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sales_Details" Type="Self.Sales_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sales_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Det__Sales__5DCAEF64">
+          <End Role="Sales_Master" Type="Self.Sales_Master" Multiplicity="1" />
+          <End Role="Sales_Details" Type="Self.Sales_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sales_Details">
+              <PropertyRef Name="Sales_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Mas__Custo__5AEE82B9">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sales_Master" Type="Self.Sales_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Sales_Master">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase_Detail" EntityType="Self.Purchase_Detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase_Master" EntityType="Self.Purchase_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Details" EntityType="Self.Sales_Details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales_Master" EntityType="Self.Sales_Master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Product__Brand_I__5165187F" Association="Self.FK__Product__Brand_I__5165187F">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Product__Brand_I__5FB337D6" Association="Self.FK__Product__Brand_I__5FB337D6">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchase___Produ__5812160E" Association="Self.FK__Purchase___Produ__5812160E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Purchase_Detail" EntitySet="Purchase_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchase___Suppl__5441852A" Association="Self.FK__Purchase___Suppl__5441852A">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Purchase_Master" EntitySet="Purchase_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Det__Produ__5EBF139D" Association="Self.FK__Sales_Det__Produ__5EBF139D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sales_Details" EntitySet="Sales_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Det__Sales__5DCAEF64" Association="Self.FK__Sales_Det__Sales__5DCAEF64">
+            <End Role="Sales_Master" EntitySet="Sales_Master" />
+            <End Role="Sales_Details" EntitySet="Sales_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Mas__Custo__5AEE82B9" Association="Self.FK__Sales_Mas__Custo__5AEE82B9">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sales_Master" EntitySet="Sales_Master" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Brand_ID" />
+          </Key>
+          <Property Name="Brand_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Brand_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Brand_Model" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Product__Brand_I__5165187F" FromRole="Brand" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pincode" Type="Int32" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PAN_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Sales_Master" Relationship="Self.FK__Sales_Mas__Custo__5AEE82B9" FromRole="Customer" ToRole="Sales_Master" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model_Id" Type="Int32" Nullable="false" />
+          <Property Name="Brand_Id" Type="Int32" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK__Product__Brand_I__5165187F" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Purchase_Detail" Relationship="Self.FK__Purchase___Produ__5812160E" FromRole="Product" ToRole="Purchase_Detail" />
+          <NavigationProperty Name="Sales_Details" Relationship="Self.FK__Sales_Det__Produ__5EBF139D" FromRole="Product" ToRole="Sales_Details" />
+        </EntityType>
+        <EntityType Name="Purchase_Detail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UOM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Net_Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Purchase___Produ__5812160E" FromRole="Purchase_Detail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Purchase_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_NO" Type="Int32" Nullable="false" />
+          <Property Name="PO_Date" Type="DateTime" Precision="3" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK__Purchase___Suppl__5441852A" FromRole="Purchase_Master" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Sales_Details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sales_ID" Type="Int32" Nullable="false" />
+          <Property Name="Product_ID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UOM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="Tax" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Tax_Amount" Type="Int32" Nullable="false" />
+          <Property Name="Net_Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK__Sales_Det__Produ__5EBF139D" FromRole="Sales_Details" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Sales_Master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" />
+          <Property Name="Sales_Date" Type="DateTime" Precision="3" />
+          <Property Name="PAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK__Sales_Mas__Custo__5AEE82B9" FromRole="Sales_Master" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PinCode" Type="Int32" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PAN_" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Purchase_Master" Relationship="Self.FK__Purchase___Suppl__5441852A" FromRole="Supplier" ToRole="Purchase_Master" />
+        </EntityType>
+        <Association Name="FK__Product__Brand_I__5165187F">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Brand_ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Brand_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Mas__Custo__5AEE82B9">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Sales_Master" Type="Self.Sales_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Sales_Master">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchase___Produ__5812160E">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Purchase_Detail" Type="Self.Purchase_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Detail">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Det__Produ__5EBF139D">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Sales_Details" Type="Self.Sales_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sales_Details">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchase___PO_ID__571DF1D5">
+          <End Role="Purchase_Master" Type="Self.Purchase_Master" Multiplicity="1" />
+          <End Role="Purchase_Detail" Type="Self.Purchase_Detail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase_Master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Detail">
+              <PropertyRef Name="PO_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Purchase___Suppl__5441852A">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="Purchase_Master" Type="Self.Purchase_Master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Purchase_Master">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales_Det__Sales__5DCAEF64">
+          <End Role="Sales_Master" Type="Self.Sales_Master" Multiplicity="1" />
+          <End Role="Sales_Details" Type="Self.Sales_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales_Master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Sales_Details">
+              <PropertyRef Name="Sales_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Mobile_ShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brand" EntityType="Self.Brand" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Purchase_Detail" EntityType="Self.Purchase_Detail" />
+          <EntitySet Name="Purchase_Master" EntityType="Self.Purchase_Master" />
+          <EntitySet Name="Sales_Details" EntityType="Self.Sales_Details" />
+          <EntitySet Name="Sales_Master" EntityType="Self.Sales_Master" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <AssociationSet Name="FK__Product__Brand_I__5165187F" Association="Self.FK__Product__Brand_I__5165187F">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Mas__Custo__5AEE82B9" Association="Self.FK__Sales_Mas__Custo__5AEE82B9">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Sales_Master" EntitySet="Sales_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchase___Produ__5812160E" Association="Self.FK__Purchase___Produ__5812160E">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Purchase_Detail" EntitySet="Purchase_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Det__Produ__5EBF139D" Association="Self.FK__Sales_Det__Produ__5EBF139D">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Sales_Details" EntitySet="Sales_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchase___PO_ID__571DF1D5" Association="Self.FK__Purchase___PO_ID__571DF1D5">
+            <End Role="Purchase_Master" EntitySet="Purchase_Master" />
+            <End Role="Purchase_Detail" EntitySet="Purchase_Detail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Purchase___Suppl__5441852A" Association="Self.FK__Purchase___Suppl__5441852A">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Purchase_Master" EntitySet="Purchase_Master" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales_Det__Sales__5DCAEF64" Association="Self.FK__Sales_Det__Sales__5DCAEF64">
+            <End Role="Sales_Master" EntitySet="Sales_Master" />
+            <End Role="Sales_Details" EntitySet="Sales_Details" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Mobile_ShopEntities">
+          <EntitySetMapping Name="Brand">
+            <EntityTypeMapping TypeName="Model.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="Brand_ID" ColumnName="Brand_ID" />
+                <ScalarProperty Name="Brand_Name" ColumnName="Brand_Name" />
+                <ScalarProperty Name="Brand_Model" ColumnName="Brand_Model" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PAN_" ColumnName="PAN#" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Product_Type" ColumnName="Product_Type" />
+                <ScalarProperty Name="Model_Id" ColumnName="Model_Id" />
+                <ScalarProperty Name="Brand_Id" ColumnName="Brand_Id" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Detail">
+            <EntityTypeMapping TypeName="Model.Purchase_Detail">
+              <MappingFragment StoreEntitySet="Purchase_Detail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Net_Amount" ColumnName="Net_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Master">
+            <EntityTypeMapping TypeName="Model.Purchase_Master">
+              <MappingFragment StoreEntitySet="Purchase_Master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PO_NO" ColumnName="PO_NO" />
+                <ScalarProperty Name="PO_Date" ColumnName="PO_Date" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Details">
+            <EntityTypeMapping TypeName="Model.Sales_Details">
+              <MappingFragment StoreEntitySet="Sales_Details">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sales_ID" ColumnName="Sales_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UOM" ColumnName="UOM" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Tax" ColumnName="Tax" />
+                <ScalarProperty Name="Tax_Amount" ColumnName="Tax_Amount" />
+                <ScalarProperty Name="Net_Amount" ColumnName="Net_Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales_Master">
+            <EntityTypeMapping TypeName="Model.Sales_Master">
+              <MappingFragment StoreEntitySet="Sales_Master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Sales_Date" ColumnName="Sales_Date" />
+                <ScalarProperty Name="PAN" ColumnName="PAN" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="Model.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="PAN_" ColumnName="PAN#" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

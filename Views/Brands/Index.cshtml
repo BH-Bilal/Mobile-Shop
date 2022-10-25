@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Mobile_Shop.Models.Brand>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">
+                #
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Brand_Name)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Brand_Model)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ int i = 1; }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">
+                    @i
+                    @{ i++;}
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand_Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Brand_ID },new {@class="btn btn-primary" } ) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Brand_ID }, new { @class="btn btn-success" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Brand_ID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+<tbody>
+</table>
